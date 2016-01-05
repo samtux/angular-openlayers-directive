@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="demoapp">
+<head>
+  <meta charset="UTF-8"> 
+  <script src="../bower_components/openlayers3/build/ol.js"></script>
+  <script src="../bower_components/angular/angular.min.js"></script>
+  <script src="../bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="../dist/angular-openlayers-directive.js"></script>
+  <link rel="stylesheet" href="../bower_components/openlayers3/build/ol.css"/>
+  <script>
+    var app = angular.module("demoapp", ["openlayers-directive"]);
+    app.controller("imageController", [ '$scope', '$http', 'olData', function($scope, $http, olData) {
+      angular.extend($scope, {
+        bogota: {
+          lat: 4.585,
+          lon: -74.13,
+          zoom: 5
+        },        
+        mapa: {
+          name: 'ortofoto',
+          active: true,
+          visible: true,
+          source: {
+            type: 'TileTMS',
+            attribution: 'OSM MapServer Provided by NOAA WOC &copy; <a href="http://osm.woc.noaa.gov/mapcache/demo/tms" target="_blank">OSM MapCache</a>',
+            url: "http://osm.woc.noaa.gov/mapcache/tms/1.0.0/osm@g/",
+            maxExtent: [-20037508.342789,-20037508.342789,20037508.342789,20037508.342789],
+            tileGrid: {
+              origin: [-20037508.342789,-20037508.342789],
+              resolutions: [156543.03392804099712520838,78271.51696402048401068896,39135.75848201022745342925,19567.87924100512100267224,9783.93962050256050133612,4891.96981025128025066806,2445.98490512564012533403,1222.99245256282006266702,611.49622628141003133351,305.74811314070478829308,152.87405657035250783338,76.43702828517623970583,38.21851414258812695834,19.10925707129405992646,9.55462853564703173959,4.77731426782351586979,2.38865713391175793490,1.19432856695587897633,0.59716428347793950593]
+            }
+          }
+        }
+      });
+
+} ]);
+</script>
+</head>
+<body ng-controller="imageController">
+ <openlayers ol-center="bogota" custom-layers="true"  width="100%" height="480px" ol-defaults="defaults">
+  <ol-layer ol-layer-properties="mapa"></ol-layer> 
+</openlayers>
+<h1>TileTMS layer Example</h1>
+<p>Load an cache image with TMS schema, example OSM MapServer Provided by NOAA WOC</p>
+
+</body>
+</html>
